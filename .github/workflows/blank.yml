@@ -34,8 +34,14 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: load property
+        id: read_property
+        uses: christian-draeger/read-properties@1.1.1
+        with:
+          path: './gradle.properties'
+          properties: 'VERSION VERSION_CODE'
       - name: create tag
         run: |
-          echo "v1.0.0-20-test" > TAG_NAME
+          echo "v{{ steps.read_property.outputs.VERSION }}-{{ steps.read_property.outputs.VERSION_CODE }}" > TAG_NAME
           git tag $(cat TAG_NAME)
           git push origin $(cat TAG_NAME)

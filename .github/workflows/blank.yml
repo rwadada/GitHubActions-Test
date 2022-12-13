@@ -42,6 +42,6 @@ jobs:
           properties: 'VERSION VERSION_CODE'
       - name: create tag
         run: |
-          echo "v{{ steps.read_property.outputs.VERSION }}-{{ steps.read_property.outputs.VERSION_CODE }}" > TAG_NAME
+          echo "v${{ steps.read_property.outputs.VERSION }}-${{ steps.read_property.outputs.VERSION_CODE }}" > TAG_NAME
           git tag $(cat TAG_NAME)
           git push origin $(cat TAG_NAME)

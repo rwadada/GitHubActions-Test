@@ -16,15 +16,15 @@ jobs:
        - name: output test
          run: |
           echo ${{ github.event.inputs.version }} > VERSION
-      - name: load property
-        id: read_property
-        uses: christian-draeger/read-properties@1.1.1
-        with:
-          path: './gradle.properties'
-          properties: 'VERSION_CODE'
-      - name: create tag
-        run: |
-          echo "${{ steps.read_property.outputs.VERSION_CODE }}" > CURRENT_VERSION_NAME
-          git tag $(cat TAG_NAME)
-          git push origin $(cat TAG_NAME)
+       - name: load property
+         id: read_property
+         uses: christian-draeger/read-properties@1.1.1
+         with:
+           path: './gradle.properties'
+           properties: 'VERSION_CODE'
+       - name: create tag
+         run: |
+           echo "${{ steps.read_property.outputs.VERSION_CODE }}" > CURRENT_VERSION_NAME
+           git tag $(cat TAG_NAME)
+           git push origin $(cat TAG_NAME)
 

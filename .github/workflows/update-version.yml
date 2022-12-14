@@ -1,0 +1,18 @@
+name: Create PR from develop to main
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        required: true
+        description: 'Version'
+jobs:
+  updateVersion:
+    name: update-version
+    runs-on: ubuntu-latest
+    steps:
+       - uses: actions/checkout@master
+       - name: output test
+         run: |
+          echo ${{ github.event.inputs.version }}

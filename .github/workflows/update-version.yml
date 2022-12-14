@@ -24,5 +24,5 @@ jobs:
            properties: 'VERSION_CODE'
        - name: create tag
          run: |
-           echo "${{ steps.read_property.outputs.VERSION_CODE }}" > CURRENT_VERSION_NAME
+           echo "${{ steps.read_property.outputs.VERSION_CODE }} + 1" > VERSION_NAME
 

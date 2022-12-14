@@ -25,6 +25,4 @@ jobs:
        - name: create tag
          run: |
            echo "${{ steps.read_property.outputs.VERSION_CODE }}" > CURRENT_VERSION_NAME
-           git tag $(cat TAG_NAME)
-           git push origin $(cat TAG_NAME)
 

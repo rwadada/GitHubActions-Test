@@ -20,19 +20,19 @@ jobs:
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          run: |
-           git switch -c update_v${{ VERSION }}
-           git push -u origin update_v${{ VERSION }}
+           git switch -c update_v${VERSION}
+           git push -u origin update_v${VERSION}
        - name: add a commit
          uses: EndBug/add-and-commit@v7
          with:
-           branch: update_v${{ VERSION }}
+           branch: update_v${VERSION}
            message: ${{ VERSION }}
            add: app/gradle.properties
        - name: Create pull request
          uses: repo-sync/pull-request@v2
          with:
-           source_branch: update_v${{ VERSION }}
+           source_branch: update_v${VERSION}
            destination_branch: main
-           pr_title: ${{ VERSION }}
+           pr_title: ${VERSION}
            github_token: ${{ secrets.GITHUB_TOKEN }}
 

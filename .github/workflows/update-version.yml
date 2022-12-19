@@ -16,13 +16,23 @@ jobs:
        - name: output test
          run: |
           echo ${{ github.event.inputs.version }} > VERSION
-       - name: load property
-         id: read_property
-         uses: christian-draeger/read-properties@1.1.1
-         with:
-           path: './gradle.properties'
-           properties: 'VERSION_CODE'
-       - name: create tag
+       - name: create new branch
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
          run: |
-           echo "${{ steps.read_property.outputs.VERSION_CODE + 1 }}" > VERSION_NAME
+           git switch -c update_v${{ VERSION }}
+           git push -u origin update_v${{ VERSION }}
+       - name: add a commit
+         uses: EndBug/add-and-commit@v7
+         with:
+           branch: update_v${{ VERSION }}
+           message: ${{ VERSION }}
+           add: app/gradle.properties
+       - name: Create pull request
+         uses: repo-sync/pull-request@v2
+         with:
+           source_branch: update_v${{ VERSION }}
+           destination_branch: main
+           pr_title: ${{ VERSION }}
+           github_token: ${{ secrets.GITHUB_TOKEN }}
 

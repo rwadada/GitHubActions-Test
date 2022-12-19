@@ -15,7 +15,7 @@ jobs:
        - uses: actions/checkout@master
        - name: output test
          run: |
-          echo ${{ github.event.inputs.version }} > VERSION
+          echo ${{ github.event.inputs.version }} > $VERSION
        - name: create new branch
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
